@@ -36,6 +36,10 @@ oc new-app icescrum/icescrum
 ## Create icescrum's volum
 
 ## Create postgres' app
+```
+oc new-app -e POSTGRESQL_USER=admin -e POSTGRESQL_PASSWORD=admin -e POSTGRESQL_DATABASE=icescrum --docker-image="registry.access.redhat.com/openshift3/postgresql-92-rhel7"
+```
+
 ## Create postgres' volum
 
 ## Initial config
