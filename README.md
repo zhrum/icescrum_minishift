@@ -1,5 +1,5 @@
-# icescrum_minishift
-Installing icesrum into minishift
+# Installing icescrum into minishift
+
 ## Create user and set policies and create project
 ## Create icescrum's app
 
