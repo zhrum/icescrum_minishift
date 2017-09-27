@@ -1,4 +1,6 @@
 # Installing icescrum into minishift
+Since Icescrum is a brand-new tool, no article explains how to install it into openshift.
+I am telling here what I have experienced with minishift.
 
 ## Create user and set policies and create project
 Log into minishift as system administrater
