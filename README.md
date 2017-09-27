@@ -9,7 +9,7 @@ oc login -u system:admin
 ```
 
 ```
-oc adm policy add-scc-to-user anyuid -z default
+oc adm policy add-role-to-user system:deployer icescrum
 ```
 Create a new user
 ```
