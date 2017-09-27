@@ -27,6 +27,9 @@ oc new-project icescrum
 
 
 ## Create icescrum's app
+```
+oc new-app icescrum/icescrum
+```
 
 ## Create icescrum's service
 ## Create icescrum's route
