@@ -78,6 +78,8 @@ oc new-app -e POSTGRESQL_USER=admin -e POSTGRESQL_PASSWORD=admin -e POSTGRESQL_D
 * Access Mode : Single User (RWO) 
 * Size : 50M
 
+* Mount Path : 
+
 ## Initial configuration
 * Database:                   PostgreSQL
 * URL:                        jdbc:postgresql://postgresql-92-rhel7:5432/icescrum
