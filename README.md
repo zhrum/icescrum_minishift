@@ -42,7 +42,6 @@ metadata:
   name: icescrumservice
   namespace: icescrum
 spec:
-  clusterIP: 172.30.141.71  
   ports:
   - port: 8080              
     protocol: TCP
