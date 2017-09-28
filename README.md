@@ -52,7 +52,12 @@ spec:
 ```
 
 ## Create icescrum's route
-## Create icescrum's volum
+## Create icescrum's volum and attach volum to deployment
+Create volum
+* Name : icescrumstorage
+* Access Mode : Single User (RWO) 
+* Size : 10M
+Attche volum
 * Mount Path : /root
 
 
@@ -61,10 +66,11 @@ spec:
 oc new-app -e POSTGRESQL_USER=admin -e POSTGRESQL_PASSWORD=admin -e POSTGRESQL_DATABASE=icescrum --docker-image="registry.access.redhat.com/openshift3/postgresql-92-rhel7"
 ```
 
-## Create postgres' volum
+## Create postgres' volum and attach volum to deployment
 * Name : postgrestorage
 * Access Mode : Single User (RWO) 
 * Size : 50M
+
 ## Initial configuration
 * Database:                   PostgreSQL
 * URL:                        jdbc:postgresql://postgresql-92-rhel7:5432/icescrum
