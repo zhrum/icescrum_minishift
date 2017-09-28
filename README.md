@@ -70,15 +70,17 @@ Attche volume
 
 ## Create postgres' app
 ```
-oc new-app -e POSTGRESQL_USER=admin -e POSTGRESQL_PASSWORD=admin -e POSTGRESQL_DATABASE=icescrum --docker-image="registry.access.redhat.com/openshift3/postgresql-92-rhel7"
+oc new-app -e DB_USER=admin -e DB_PASS=admin -e DB_NAME=icescrum --docker-image="sameersbn/postgresql"
 ```
 
 ## Create postgres' volume and attach volume to deployment
+Create volume
 * Name : postgrestorage
 * Access Mode : Single User (RWO) 
 * Size : 50M
 
-* Mount Path : 
+Keep the existing volume1 but delete volume2, then attach the new persistent one
+* Mount Path : /var/lib/postgresql
 
 ## Initial configuration
 * Database:                   PostgreSQL
