@@ -39,7 +39,7 @@ kind: Service
 metadata:
   labels:
     app: icescrum
-  name: serviceicescrum
+  name: icescrumservice
   namespace: icescrum
 spec:
   clusterIP: 172.30.141.71  
@@ -54,6 +54,10 @@ spec:
 ```
 
 ## Create icescrum's route
+* Name : icescrumroute
+* Hostname : 
+* Path : 
+* Service : icescrumservice 
 ## Create icescrum's volum and attach volum to deployment
 Create volum
 * Name : icescrumstorage
