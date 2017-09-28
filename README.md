@@ -58,7 +58,8 @@ Create volum
 * Name : icescrumstorage
 * Access Mode : Single User (RWO) 
 * Size : 10M
-Attche volum<br>
+
+Attche volum
 * Mount Path : /root
 
 
