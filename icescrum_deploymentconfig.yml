@@ -10,16 +10,6 @@ spec:
   selector:
     app: icescrum
     deploymentconfig: icescrum
-  strategy:
-    activeDeadlineSeconds: 21600
-    resources: {}
-    rollingParams:
-      intervalSeconds: 1
-      maxSurge: 25%
-      maxUnavailable: 25%
-      timeoutSeconds: 600
-      updatePeriodSeconds: 1
-    type: Rolling
   template:
     metadata:
       labels:
@@ -27,26 +17,6 @@ spec:
         deploymentconfig: icescrum
     spec:
       containers:
-      - image: icescrum/icescrum@sha256:ea75f5b552c6c1a7a240bc7f7757bd7780bf39c729fc21ecb48b8f325c89c94b
+      - image: icescrum/icescrum
         imagePullPolicy: Always
         name: icescrum
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-  test: false
-  triggers:
-  - type: ConfigChange
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - icescrum
-      from:
-        kind: ImageStreamTag
-        name: icescrum:latest
-        namespace: icescrum
-    type: ImageChange
