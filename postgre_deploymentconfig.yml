@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: postgresql
+  name: postgresql
+  namespace: icescrum
+spec:
+  replicas: 1
+  selector:
+    app: postgresql
+    deploymentconfig: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+        deploymentconfig: postgresql
+    spec:
+      containers:
+      - env:
+        - name: DB_NAME
+          value: icescrum
+        - name: DB_PASS
+          value: admin
+        - name: DB_USER
+          value: admin
+        image: sameersbn/postgresql
+        name: postgresql
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /var/lib/postgresql
+          name: postgresql-volume-1
+        - mountPath: /run/postgresql
+          name: postgresql-volume-2
+      volumes:
+      - emptyDir: {}
+        name: postgresql-volume-1
+      - emptyDir: {}
+        name: postgresql-volume-2
