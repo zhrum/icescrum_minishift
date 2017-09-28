@@ -5,13 +5,3 @@ metadata:
     app: icescrum
   name: icescrum
   namespace: icescrum
-spec:
-  lookupPolicy:
-    local: false
-  tags:
-  - annotations:
-      openshift.io/imported-from: icescrum/icescrum
-    from:
-      kind: DockerImage
-      name: icescrum/icescrum
-    name: latest
