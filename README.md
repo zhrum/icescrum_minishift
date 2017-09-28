@@ -80,6 +80,7 @@ Create volume
 * Size : 50M
 
 Scale postgressql to 0 pod.
+
 Keep the existing volume1(/run/postgresql) but delete volume2(/var/lib/postgresql), then attach the new persistent one.
 * Mount Path : /var/lib/postgresql
 
@@ -93,6 +94,8 @@ Go to the main page of icescrum : \<icescrumroute\>/icescrum
 * Password:                   admin
 
 ## Finally
-Scale icescrum service to 0 pod then 1 pod.
-
+* Scale icescrum service to 0 pod.
+* Scale postgre service to 0 pod.
+* Scale postgre service to 1 pod.
+* Scale icescrum service to 1 pod.
 
