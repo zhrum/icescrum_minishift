@@ -18,5 +18,4 @@ spec:
     spec:
       containers:
       - image: icescrum/icescrum
-        imagePullPolicy: Always
         name: icescrum
