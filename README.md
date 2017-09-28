@@ -84,7 +84,7 @@ Keep the existing volume1 but delete volume2, then attach the new persistent one
 
 ## Initial configuration
 * Database:                   PostgreSQL
-* URL:                        jdbc:postgresql://postgresql-92-rhel7:5432/icescrum
+* URL:                        jdbc:postgresql://postgresql:5432/icescrum
 * User:                       admin
 * Password:                   admin
 
