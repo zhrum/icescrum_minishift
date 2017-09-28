@@ -31,9 +31,29 @@ oc new-project icescrum
 oc new-app icescrum/icescrum
 ```
 
-## Create icescrum's service
+## Create icescrum's serviceapiVersion: v1
+
+kind: Service
+metadata:
+  labels:
+    app: icescrum
+  name: serviceicescrum
+  namespace: icescrum
+spec:
+  clusterIP: 172.30.141.71  
+  ports:
+  - port: 8080              
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: icescrum
+    deploymentconfig: icescrum
+  type: ClusterIP
+
 ## Create icescrum's route
 ## Create icescrum's volum
+* Mount Path : /root
+
 
 ## Create postgres' app
 ```
