@@ -32,6 +32,7 @@ oc new-app icescrum/icescrum
 ```
 
 ## Create icescrum's service
+Add to Project -> import YAML/JSON
 ```console
 apiVersion: v1
 kind: Service
