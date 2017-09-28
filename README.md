@@ -31,8 +31,9 @@ oc new-project icescrum
 oc new-app icescrum/icescrum
 ```
 
-## Create icescrum's serviceapiVersion: v1
+## Create icescrum's service
 ```console
+apiVersion: v1
 kind: Service
 metadata:
   labels:
