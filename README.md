@@ -83,9 +83,13 @@ Keep the existing volume1 but delete volume2, then attach the new persistent one
 * Mount Path : /var/lib/postgresql
 
 ## Initial configuration
+Go to the main page of icescrum : <icescrumroute>/icescrum
 * Database:                   PostgreSQL
 * URL:                        jdbc:postgresql://postgresql:5432/icescrum
 * User:                       admin
 * Password:                   admin
+
+## Finally
+Scale icescrum service to 0 pod then 1 pod.
 
 
