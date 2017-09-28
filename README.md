@@ -32,7 +32,7 @@ oc new-app icescrum/icescrum
 ```
 
 ## Create icescrum's serviceapiVersion: v1
-
+```console
 kind: Service
 metadata:
   labels:
@@ -49,6 +49,7 @@ spec:
     app: icescrum
     deploymentconfig: icescrum
   type: ClusterIP
+```
 
 ## Create icescrum's route
 ## Create icescrum's volum
