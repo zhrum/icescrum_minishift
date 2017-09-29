@@ -1,0 +1,124 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: icescrum
+objects:
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    labels:
+      app: icescrum
+    name: icescrum
+    namespace: icescrum
+  spec:
+    replicas: 1
+    selector:
+      app: icescrum
+      deploymentconfig: icescrum
+    template:
+      metadata:
+        labels:
+          app: icescrum
+          deploymentconfig: icescrum
+      spec:
+        containers:
+        - image: icescrum/icescrum
+          name: icescrum
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    labels:
+      app: icescrum
+    name: icescrum
+    namespace: icescrum
+- kind: Route
+  apiVersion: v1
+  metadata:
+    name: icescrumroute
+    namespace: icescrum
+  spec:
+    to:
+      kind: Service
+      name: icescrumservice
+- kind: Service
+  apiVersion: v1
+  metadata:
+    labels:
+      app: icescrum
+    name: icescrumservice
+    namespace: icescrum
+  spec:
+    ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: icescrum
+      deploymentconfig: icescrum
+    type: ClusterIP
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    labels:
+      app: postgresql
+    name: postgresql
+    namespace: icescrum
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    labels:
+      app: postgresql
+    name: postgresql
+    namespace: icescrum
+  spec:
+    replicas: 1
+    selector:
+      app: postgresql
+      deploymentconfig: postgresql
+    template:
+      metadata:
+        labels:
+          app: postgresql
+          deploymentconfig: postgresql
+      spec:
+        containers:
+        - env:
+          - name: DB_NAME
+            value: icescrum
+          - name: DB_PASS
+            value: admin
+          - name: DB_USER
+            value: admin
+          image: sameersbn/postgresql
+          name: postgresql
+          ports:
+          - containerPort: 5432
+            protocol: TCP
+          volumeMounts:
+          - mountPath: /var/lib/postgresql
+            name: postgresql-volume-1
+          - mountPath: /run/postgresql
+            name: postgresql-volume-2
+        volumes:
+        - emptyDir: {}
+          name: postgresql-volume-1
+        - emptyDir: {}
+          name: postgresql-volume-2 
+- kind: Service
+  apiVersion: v1
+  metadata:
+    labels:
+      app: postgresql
+    name: postgresql
+    namespace: icescrum
+  spec:
+    ports:
+    - name: 5432-tcp
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+    selector:
+      app: postgresql
+      deploymentconfig: postgresql
+    type: ClusterIP                   
