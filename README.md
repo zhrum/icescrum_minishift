@@ -30,7 +30,7 @@ oc new-project icescrum
 * DB_USER : admin
 * DB_PASS : admin
 
-## Create icescrum's volum and attach volume to deployment
+## Create icescrum's volume and attach volume to deployment
 Create volume
 * Name : icescrumstorage
 * Access Mode : Single User (RWO) 
