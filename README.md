@@ -23,40 +23,10 @@ Create a new project
 ```
 oc new-project icescrum
 ```
+## Import the YAML file to the project
+* DB_USER : admin
+* DB_PASS : admin
 
-
-
-## Create icescrum's app
-```
-oc new-app icescrum/icescrum
-```
-
-## Create icescrum's service
-Add to Project -> import YAML/JSON
-```console
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: icescrum
-  name: icescrumservice
-  namespace: icescrum
-spec:
-  ports:
-  - port: 8080              
-    protocol: TCP
-    targetPort: 8080
-  selector:
-    app: icescrum
-    deploymentconfig: icescrum
-  type: ClusterIP
-```
-
-## Create icescrum's route
-* Name : icescrumroute
-* Hostname : 
-* Path : 
-* Service : icescrumservice 
 ## Create icescrum's volum and attach volume to deployment
 Create volume
 * Name : icescrumstorage
@@ -65,12 +35,6 @@ Create volume
 
 Attche volume
 * Mount Path : /root
-
-
-## Create postgres' app
-```
-oc new-app -e DB_USER=admin -e DB_PASS=admin -e DB_NAME=icescrum --docker-image="sameersbn/postgresql"
-```
 
 ## Create postgres' volume and attach volume to deployment
 Create volume
