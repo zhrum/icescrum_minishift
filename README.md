@@ -23,7 +23,7 @@ Create a new project
 ```
 oc new-project icescrum
 ```
-## Import the YAML file to the project
+## Import the YAML file to project
 * DB_USER : admin
 * DB_PASS : admin
 
