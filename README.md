@@ -1,6 +1,9 @@
 # Installing icescrum into minishift
 Since Icescrum is a brand-new tool, no article explains how to install it into openshift.
-I am telling here what I have experienced with minishift.
+
+I have made a template file for minishift with postgresql.
+
+Please note that it's necessary to create persistent volumes before starting the application, or pods scalings may break everything. 
 
 ## Create user and set policies and create project
 Log into minishift as system administrater
