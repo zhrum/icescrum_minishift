@@ -10,7 +10,6 @@ objects:
     labels:
       app: icescrum
     name: icescrum
-    namespace: icescrum
   spec:
     replicas: 1
     selector:
@@ -36,7 +35,6 @@ objects:
   apiVersion: v1
   metadata:
     name: icescrumroute
-    namespace: icescrum
   spec:
     to:
       kind: Service
@@ -47,7 +45,6 @@ objects:
     labels:
       app: icescrum
     name: icescrumservice
-    namespace: icescrum
   spec:
     ports:
     - port: 8080
@@ -70,7 +67,6 @@ objects:
     labels:
       app: postgresql
     name: postgresql
-    namespace: icescrum
   spec:
     replicas: 1
     selector:
@@ -111,7 +107,6 @@ objects:
     labels:
       app: postgresql
     name: postgresql
-    namespace: icescrum
   spec:
     ports:
     - name: 5432-tcp
