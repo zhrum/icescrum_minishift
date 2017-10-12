@@ -10,7 +10,6 @@ objects:
     labels:
       app: icescrum
     name: icescrum
-    namespace: icescrum
   spec:
     replicas: 1
     selector:
@@ -25,18 +24,24 @@ objects:
         containers:
         - image: icescrum/icescrum
           name: icescrum
+          volumeMounts:
+          - name: is-vol-1
+            mountPath: "/root"
+        volumes:
+        - name: is-vol-1
+          persistentVolumeClaim:
+            claimName: is-data
+        
 - kind: ImageStream
   apiVersion: v1
   metadata:
     labels:
       app: icescrum
     name: icescrum
-    namespace: icescrum
 - kind: Route
   apiVersion: v1
   metadata:
     name: icescrumroute
-    namespace: icescrum
   spec:
     to:
       kind: Service
@@ -47,7 +52,6 @@ objects:
     labels:
       app: icescrum
     name: icescrumservice
-    namespace: icescrum
   spec:
     ports:
     - port: 8080
@@ -63,62 +67,104 @@ objects:
     labels:
       app: postgresql
     name: postgresql
-    namespace: icescrum
-- kind: DeploymentConfig
-  apiVersion: v1
+- apiVersion: v1
+  kind: PersistentVolumeClaim
   metadata:
+    name: is-data
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+  status:
+    accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+    - ReadOnlyMany
+    capacity:
+      storage: 100Gi
+    phase: Bound
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    generation: 2
     labels:
-      app: postgresql
+      app: postgresql-persistent
+      template: postgresql-persistent-template
     name: postgresql
-    namespace: icescrum
   spec:
     replicas: 1
     selector:
-      app: postgresql
-      deploymentconfig: postgresql
+      name: postgresql
     template:
       metadata:
         labels:
-          app: postgresql
-          deploymentconfig: postgresql
+          name: postgresql
       spec:
         containers:
         - env:
-          - name: DB_NAME
+          - name: POSTGRESQL_USER
+            value: admin
+          - name: POSTGRESQL_PASSWORD
+            value: admin
+          - name: POSTGRESQL_DATABASE
             value: icescrum
-          - name: DB_PASS
-            value: admin
-          - name: DB_USER
-            value: admin
-          image: sameersbn/postgresql
+          image: centos/postgresql-95-centos7@sha256:2a107a9739647d9768c29841e00229a9009f47dd415c06bc53e19d720fc6c886
           name: postgresql
           ports:
           - containerPort: 5432
             protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -i
+              - -c
+              - psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c
+                'SELECT 1'
+          resources:
+            limits:
+              memory: 512Mi
           volumeMounts:
-          - mountPath: /var/lib/postgresql
-            name: postgresql-volume-1
-          - mountPath: /run/postgresql
-            name: postgresql-volume-2
+          - mountPath: /var/lib/pgsql/data
+            name: postgresql-data
         volumes:
-        - emptyDir: {}
-          name: postgresql-volume-1
-        - emptyDir: {}
-          name: postgresql-volume-2 
-- kind: Service
-  apiVersion: v1
+        - name: postgresql-data
+          persistentVolumeClaim:
+            claimName: postgresql
+- apiVersion: v1
+  kind: Service
   metadata:
+    annotations:
+      template.openshift.io/expose-uri: postgres://{.spec.clusterIP}:{.spec.ports[?(.name=="postgresql")].port}
     labels:
-      app: postgresql
+      app: postgresql-persistent
+      template: postgresql-persistent-template
     name: postgresql
-    namespace: icescrum
   spec:
     ports:
-    - name: 5432-tcp
+    - name: postgresql
       port: 5432
       protocol: TCP
       targetPort: 5432
     selector:
-      app: postgresql
-      deploymentconfig: postgresql
-    type: ClusterIP                   
+      name: postgresql
+    type: ClusterIP
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: postgresql
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+  status:
+    accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+    - ReadOnlyMany
+    capacity:
+      storage: 100Gi            
