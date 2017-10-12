@@ -39,19 +39,6 @@ Create volume
 Attche volume
 * Mount Path : /root
 
-## Create postgres' volume and attach volume to deployment
-Create volume
-* Name : postgrestorage
-* Access Mode : Single User (RWO) 
-* Size : 50M
-
-Scale postgressql to 0 pod.
-
-Keep the existing volume1(/run/postgresql) but delete volume2(/var/lib/postgresql), then attach the new persistent one.
-* Mount Path : /var/lib/postgresql
-
-Scale postgressql to 1 pod.
-
 ## Initial configuration
 Go to the main page of icescrum : \<icescrumroute\>/icescrum
 * Database:                   PostgreSQL
