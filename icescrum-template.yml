@@ -105,9 +105,9 @@ objects:
         containers:
         - env:
           - name: POSTGRESQL_USER
-            value: admin
+            value: "${DB_USER}"
           - name: POSTGRESQL_PASSWORD
-            value: admin
+            value: "${DB_PASS}"
           - name: POSTGRESQL_DATABASE
             value: icescrum
           image: centos/postgresql-95-centos7@sha256:2a107a9739647d9768c29841e00229a9009f47dd415c06bc53e19d720fc6c886
@@ -125,7 +125,7 @@ objects:
                 'SELECT 1'
           resources:
             limits:
-              memory: 512Mi
+              memory: "${MEM_LIMIT}"
           volumeMounts:
           - mountPath: /var/lib/pgsql/data
             name: postgresql-data
@@ -167,4 +167,21 @@ objects:
     - ReadWriteMany
     - ReadOnlyMany
     capacity:
-      storage: 100Gi            
+      storage: 100Gi
+parameters:
+- name: MEM_LIMIT
+  displayName: Memory Limit
+  description: Maximum amount of memory the container can use.
+  value: 512Mi
+- name: DB_USER
+  displayName: DataBase User
+  description: Username that will be used for accessing the database.
+  generate: expression
+  from: user[A-Z0-9]{3}
+  required: true
+- name: DB_PASS
+  displayName: DataBase Password
+  description: Password for the database user.
+  generate: expression
+  from: "[a-zA-Z0-9]{16}"
+  required: true           
