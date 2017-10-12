@@ -30,14 +30,6 @@ oc new-project icescrum
 * DB_USER : admin
 * DB_PASS : admin
 
-## Create icescrum's volume and attach volume to deployment
-Create volume
-* Name : icescrumstorage
-* Access Mode : Single User (RWO) 
-* Size : 10M
-
-Attche volume
-* Mount Path : /root
 
 ## Initial configuration
 Go to the main page of icescrum : \<icescrumroute\>/icescrum
