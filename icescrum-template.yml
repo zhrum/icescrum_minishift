@@ -76,7 +76,7 @@ objects:
     - ReadWriteOnce
     resources:
       requests:
-        storage: 1Gi
+        storage: "${IS_VOL}"
   status:
     accessModes:
     - ReadWriteOnce
@@ -160,7 +160,7 @@ objects:
     - ReadWriteOnce
     resources:
       requests:
-        storage: 1Gi
+        storage: "${DB_VOL}"
   status:
     accessModes:
     - ReadWriteOnce
@@ -173,6 +173,7 @@ parameters:
   displayName: Memory Limit
   description: Maximum amount of memory the container can use.
   value: 512Mi
+  required: true
 - name: DB_USER
   displayName: DataBase User
   description: Username that will be used for accessing the database.
@@ -184,4 +185,14 @@ parameters:
   description: Password for the database user.
   generate: expression
   from: "[a-zA-Z0-9]{16}"
-  required: true           
+  required: true
+- name: IS_VOL
+  displayName: Icescrum's volume size
+  description: The size of the allocated volume for icescrum.
+  value: 1Gi
+  required: true
+- name: DB_VOL
+  displayName: Database's volume size
+  description: The size of the allocated volume for postgresql.
+  value: 1Gi
+  required: true
