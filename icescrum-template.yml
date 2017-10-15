@@ -22,7 +22,7 @@ objects:
           deploymentconfig: icescrum
       spec:
         containers:
-        - image: zhrum/icescrum
+        - image: zhrum/icescrum:R6
           name: icescrum
           volumeMounts:
           - name: is-vol-1
